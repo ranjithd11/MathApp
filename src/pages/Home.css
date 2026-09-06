@@ -117,6 +117,14 @@
   box-shadow: 0 14px 40px rgba(255, 107, 107, 0.55);
 }
 
+/* Mobile grade picker button — hidden on desktop */
+.grade-sidebar-toggle {
+  display: none;
+}
+
+/* Desktop-only / mobile-only visibility */
+.desktop-only { display: block; }
+
 /* ── Grade section ── */
 .grade-section {
   padding: 48px 24px 80px;
@@ -222,26 +230,237 @@
   opacity: 0.7;
 }
 
+/* ── Grade Sidebar (mobile) ── */
+.grade-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  animation: fadeIn 0.25s ease;
+}
+
+.grade-sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(85vw, 320px);
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
+  z-index: 201;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.35);
+}
+.grade-sidebar.open {
+  transform: translateX(0);
+}
+
+.grade-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.grade-sidebar-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.grade-sidebar-close {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+.grade-sidebar-close:hover {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  transform: rotate(90deg);
+}
+
+.grade-sidebar-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.grade-sidebar-list-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Each grade item wrapper */
+.sidebar-grade-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grade row — button style for available, div for locked */
+.sidebar-grade-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  background: var(--gradient-card);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-main);
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: fadeUp 0.3s ease both;
+}
+.sidebar-grade-row.available:hover {
+  border-color: var(--border-active);
+  transform: translateX(3px);
+  box-shadow: var(--shadow-sm);
+}
+.sidebar-grade-row.expanded {
+  border-color: var(--accent-secondary);
+  background: var(--bg-card-hover);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.sidebar-grade-row.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sidebar-grade-row .gc-emoji   { font-size: 1.6rem; flex-shrink: 0; }
+.sidebar-grade-row .gc-grade   { font-size: 0.95rem; font-weight: 800; color: var(--text-primary); flex: 1; }
+.sidebar-grade-row .gc-tagline { font-size: 0.65rem; color: var(--text-muted); font-weight: 600; }
+.sidebar-grade-row .gc-lock    { margin-left: auto; font-size: 0.9rem; }
+
+.sidebar-expand-icon {
+  margin-left: auto;
+  font-size: 1.1rem;
+  color: var(--accent-secondary);
+  font-weight: 900;
+  transition: transform 0.25s ease;
+}
+.sidebar-grade-row.expanded .sidebar-expand-icon {
+  transform: rotate(0deg);
+}
+
+/* Expandable modules panel */
+.sidebar-modules {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--accent-secondary);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-card);
+  margin-bottom: 4px;
+}
+
+/* Individual module row */
+.sidebar-module-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px 11px 20px;
+  text-decoration: none;
+  color: var(--text-primary);
+  border-top: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+  animation: slideInRight 0.25s ease both;
+}
+.sidebar-module-row:first-child { border-top: none; }
+.sidebar-module-row:hover {
+  background: var(--bg-glass);
+  padding-left: 24px;
+  color: var(--accent-secondary);
+}
+
+.sm-emoji {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+.sm-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  flex: 1;
+}
+.sm-arrow {
+  font-size: 1rem;
+  color: var(--accent-secondary);
+  opacity: 0.7;
+  transition: transform var(--transition-fast);
+}
+.sidebar-module-row:hover .sm-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+
 @media (max-width: 768px) {
   .home-hero { padding: 50px 16px 40px; }
   .hero-heading { font-size: 2.4rem; }
 
-  /* Force 4 columns — 10 grades fit in 3 rows, no vertical scroll */
-  .grade-grid {
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 10px;
+  /* Hide desktop grade grid, show sidebar toggle button */
+  .desktop-only { display: none !important; }
+
+  .grade-sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-glass);
+    border: 2px solid var(--border-active);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    border-radius: var(--radius-full);
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    letter-spacing: 0.02em;
   }
-  .grade-card {
-    padding: 12px 8px;
-    gap: 4px;
-    border-radius: var(--radius-lg);
+  .grade-sidebar-toggle:hover {
+    transform: translateY(-3px) scale(1.04);
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+    box-shadow: var(--shadow-md);
   }
-  .gc-emoji   { font-size: 1.5rem; }
-  .gc-grade   { font-size: 0.78rem; }
-  .gc-tagline { font-size: 0.58rem; }
-  .gc-arrow   { font-size: 0.85rem; margin-top: 2px; }
-  .gc-lock    { font-size: 0.75rem; }
+
+  /* Activate sidebar elements */
+  .grade-sidebar-overlay { display: block; }
+  .grade-sidebar         { display: flex; }
 }
+
 
 /* ── Landscape mobile ── */
 @media (max-height: 500px) and (orientation: landscape) {

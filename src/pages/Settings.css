@@ -254,3 +254,22 @@
   .settings-hero { padding: 32px 16px 24px; }
   .timer-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .settings-page { min-height: calc(100dvh - 50px); }
+
+  .settings-hero { padding: 10px 20px; gap: 6px; }
+  .settings-title { font-size: clamp(1.2rem, 3vw, 1.8rem); }
+  .settings-sub { font-size: 0.8rem; }
+  .settings-hero-badge { font-size: 0.68rem; padding: 3px 12px; }
+
+  .settings-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    padding: 14px 16px 24px;
+  }
+  .settings-card { padding: 16px 16px; gap: 12px; }
+  .card-icon { font-size: 1.5rem; }
+  .card-title { font-size: 1.1rem; }
+}

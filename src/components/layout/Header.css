@@ -151,3 +151,13 @@
   .logo-title { font-size: 1.15rem; }
   .logo-sub { display: none; }
 }
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .header-inner { height: 50px; padding: 0 12px; gap: 8px; }
+  .logo-icon { font-size: 22px; }
+  .logo-title { font-size: 1rem; }
+  .logo-sub { display: none; }
+  .grade-pill { height: 26px; min-width: 28px; padding: 0 6px; font-size: 0.65rem; }
+  .settings-link { width: 30px; height: 30px; }
+}

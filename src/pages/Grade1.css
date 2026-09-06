@@ -164,3 +164,30 @@
   .mc-emoji { font-size: 1.8rem; }
   .mc-title { font-size: 1.2rem; }
 }
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .grade1-page { min-height: calc(100dvh - 50px); }
+
+  .g1-hero {
+    padding: 10px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  .g1-hero-title { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+  .g1-emoji-big { font-size: 1.6rem; }
+  .g1-hero-sub { font-size: 0.78rem; }
+  .g1-hero-badge { font-size: 0.65rem; padding: 3px 10px; }
+
+  .module-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 12px 14px 20px;
+  }
+  .module-card { padding: 14px 12px; gap: 6px; }
+  .mc-emoji { font-size: 1.5rem; }
+  .mc-title { font-size: 1.1rem; }
+  .mc-desc { font-size: 0.75rem; }
+}

@@ -268,3 +268,12 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-active); border-radius: var(--radius-full); }
+
+/* ── Landscape mobile global ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  html { font-size: 14px; }
+
+  body { overflow-y: auto; }
+
+  #root { min-height: 100dvh; }
+}

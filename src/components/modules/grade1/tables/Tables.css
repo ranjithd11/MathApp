@@ -316,3 +316,37 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .tables-module { gap: 10px; }
+
+  .module-header { padding: 8px 12px; }
+  .module-title { font-size: 1.1rem; }
+  .back-btn { font-size: 0.8rem; padding: 6px 10px; }
+
+  /* Table selection — multi-column grid */
+  .table-selection { padding: 14px 16px; }
+  .ts-title { font-size: 1.1rem; margin-bottom: 14px; }
+  .ts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+  }
+  .ts-card { padding: 10px 6px; }
+  .ts-number { font-size: 1.8rem; margin-bottom: 4px; }
+  .ts-label { font-size: 0.72rem; }
+
+  /* Table practice rows — compact */
+  .tp-list { gap: 5px; }
+  .tp-row { padding: 8px 14px; gap: 8px; }
+  .tp-equation { font-size: 1.4rem; min-width: 110px; }
+  .tp-op { font-size: 1.1rem; }
+  .tp-input { width: 56px; height: 40px; font-size: 1.4rem; }
+  .tp-feedback-icon { font-size: 1.2rem; }
+
+  /* Completion modal */
+  .tp-completion-modal { padding: 20px 24px; }
+  .tp-completion-modal h3 { font-size: 1.8rem; margin-bottom: 8px; }
+  .tp-completion-modal p { font-size: 0.9rem; margin-bottom: 16px; }
+  .tp-btn-repeat, .tp-btn-back { padding: 10px 20px; font-size: 0.9rem; }
+}

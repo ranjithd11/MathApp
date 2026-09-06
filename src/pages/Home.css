@@ -229,3 +229,33 @@
   .grade-card { padding: 16px 12px; }
   .gc-emoji { font-size: 1.9rem; }
 }
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .home { min-height: calc(100dvh - 50px); }
+
+  .home-hero {
+    padding: 16px 24px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .hero-content { gap: 8px; }
+  .hero-heading { font-size: clamp(1.6rem, 4vw, 2rem); }
+  .hero-desc { font-size: 0.85rem; max-width: 340px; }
+  .hero-pill { font-size: 0.7rem; padding: 4px 12px; }
+  .hero-cta { padding: 10px 24px; font-size: 0.9rem; }
+  .floating-shapes { display: none; }
+
+  .grade-section { padding: 16px 16px 24px; }
+  .section-title { font-size: 1.2rem; margin-bottom: 14px; }
+  .grade-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+  }
+  .grade-card { padding: 12px 8px; }
+  .gc-emoji { font-size: 1.6rem; }
+  .gc-grade { font-size: 0.9rem; }
+}

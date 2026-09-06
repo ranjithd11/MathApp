@@ -274,3 +274,27 @@
   .hero-title { font-size: 2rem; }
   .level-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .addition-page {
+    padding: 10px 16px 16px;
+    gap: 12px;
+    min-height: calc(100dvh - 50px);
+  }
+
+  .page-hero { gap: 6px; }
+  .hero-title { font-size: 1.8rem; }
+  .hero-sub { font-size: 0.82rem; }
+  .hero-badge { font-size: 0.72rem; padding: 3px 12px; }
+
+  .level-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .level-card { padding: 16px; gap: 8px; }
+  .lv-emoji { font-size: 1.8rem; }
+  .lv-title { font-size: 1.4rem; }
+  .lv-desc { font-size: 0.8rem; }
+  .lv-play-btn { padding: 8px; font-size: 0.88rem; }
+}

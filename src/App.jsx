@@ -11,7 +11,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <SettingsProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/MathApp">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />

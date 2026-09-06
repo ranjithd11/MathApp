@@ -225,9 +225,22 @@
 @media (max-width: 600px) {
   .home-hero { padding: 50px 16px 40px; }
   .hero-heading { font-size: 2.4rem; }
-  .grade-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-  .grade-card { padding: 16px 12px; }
-  .gc-emoji { font-size: 1.9rem; }
+
+  /* 4 columns so 10 grades fit in ~3 rows — no long scroll */
+  .grade-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .grade-card {
+    padding: 12px 8px;
+    gap: 4px;
+    border-radius: var(--radius-lg);
+  }
+  .gc-emoji   { font-size: 1.5rem; }
+  .gc-grade   { font-size: 0.78rem; }
+  .gc-tagline { font-size: 0.58rem; }
+  .gc-arrow   { font-size: 0.85rem; margin-top: 2px; }
+  .gc-lock    { font-size: 0.75rem; }
 }
 
 /* ── Landscape mobile ── */
@@ -252,10 +265,10 @@
   .grade-section { padding: 16px 16px 24px; }
   .section-title { font-size: 1.2rem; margin-bottom: 14px; }
   .grade-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
   }
-  .grade-card { padding: 12px 8px; }
-  .gc-emoji { font-size: 1.6rem; }
-  .gc-grade { font-size: 0.9rem; }
+  .grade-card { padding: 10px 6px; }
+  .gc-emoji { font-size: 1.4rem; }
+  .gc-grade { font-size: 0.72rem; }
 }

@@ -1,0 +1,4 @@
+/* Operator accent override */
+.op-card .op-accent {
+  color: var(--op-accent, var(--accent-primary));
+}

@@ -1,0 +1,5 @@
+/* Subtraction-specific colour overrides on the shared problem-card base */
+.sub-card .q-num.sub-a { color: #ef4444; }
+.sub-card .q-num.sub-b { color: #f59e0b; }
+
+/* Inherit everything else from ProblemCard.css via the shared .problem-card class */

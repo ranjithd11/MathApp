@@ -1,0 +1,23 @@
+/* Reuses .vertical-card, .math-grid, .mg-* from DoubleDigitProblemCard.css */
+/* Import that file or duplicate the needed tokens */
+@import '../addition/DoubleDigitProblemCard.css';
+
+.ddsub-card .op-cell { color: #ef4444; }
+
+.ddsub-borrow-cell {
+  margin-bottom: 12px;
+  margin-right: 66px;
+}
+
+.ddsub-no-borrow {
+  width: 50px;
+  height: 40px;
+}
+
+.ddsub-borrow-hint {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+}

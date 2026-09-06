@@ -1,0 +1,141 @@
+/* Vertical Card Specific Overrides */
+.vertical-card {
+  max-width: 500px;
+}
+
+.vertical-math-area {
+  position: relative;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 2px dashed var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-btn-vertical {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-hover);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.info-btn-vertical:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: rotate(10deg) scale(1.1);
+}
+
+/* Vertical Math Grid Layout */
+.math-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.mg-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.mg-cell {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.op-cell {
+  color: var(--text-secondary);
+  font-size: 2.5rem;
+  margin-right: 8px;
+}
+
+.carry-cell {
+  margin-bottom: 12px;
+  /* Shift over to be above the tens digit */
+  margin-right: 66px; 
+}
+
+.mg-input {
+  width: 100%;
+  height: 60px;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--border-active);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+.mg-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Carry input is smaller */
+.carry-input {
+  height: 40px;
+  font-size: 1.5rem;
+  border-width: 2px;
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+}
+.carry-input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+}
+
+/* Validation Highlights */
+.mg-input.correct {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(34, 197, 94, 0.05);
+}
+.carry-input.correct {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.mg-input.wrong {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  background: rgba(248, 113, 113, 0.05);
+  animation: shake 0.4s ease;
+}
+
+.mg-divider {
+  width: 100%;
+  height: 4px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  margin: 12px 0;
+}
+
+/* Actions */
+.vertical-actions {
+  display: flex;
+  margin-top: 16px;
+}
+.full-width {
+  flex: 1;
+  justify-content: center;
+}

@@ -1,0 +1,161 @@
+/* ── Borrow Card wrapper ── */
+.borrow-card {
+  max-width: 420px;
+}
+
+/* ── Step hint banner ── */
+.borrow-step-hint {
+  background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.08));
+  border: 1.5px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ── Outer wrapper ── */
+.borrow-math-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+/* ── CSS Grid: 3 columns (op | tens | ones), rows auto ──
+   Each row is a set of 3 consecutive grid items.
+*/
+.borrow-vgrid {
+  display: grid;
+  grid-template-columns: 44px 72px 80px; /* op | tens | ones */
+  row-gap: 4px;
+  align-items: center;
+  justify-items: center;
+}
+
+/* ── Op column ── */
+.bv-op-spacer {
+  /* empty spacer for op column */
+  height: 100%;
+}
+
+.bv-op-cell {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text-secondary);
+  align-self: center;
+  justify-self: end;
+  padding-right: 4px;
+}
+
+/* ── Data cells ── */
+.bv-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ── Above-input cells (row 1) ── */
+.above-cell {
+  padding-bottom: 2px;
+}
+
+/* ── Original digit cells (rows 2 & 3) ── */
+.bv-digit {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.1;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.bv-digit.struck {
+  color: var(--text-secondary);
+  opacity: 0.4;
+}
+.bv-digit.struck::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  height: 4px;
+  background: var(--accent-red);
+  border-radius: 2px;
+  animation: strikeIn 0.35s ease-out forwards;
+}
+@keyframes strikeIn {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+.bv-digit.dimmed {
+  color: var(--text-secondary);
+  font-size: 3rem;
+}
+
+/* ── Divider row (spans all 3 cols) ── */
+.bv-divider-span {
+  border-bottom: 4px solid var(--text-primary);
+  width: 100%;
+  margin: 6px 0 4px;
+}
+/* Make divider span all 3 columns together */
+.bv-divider-span:first-of-type {
+  border-bottom: 4px solid var(--text-primary);
+}
+.bv-divider-span:nth-of-type(2),
+.bv-divider-span:nth-of-type(3) {
+  border-bottom: 4px solid var(--text-primary);
+}
+
+/* ── Input boxes ── */
+.bg-input {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  width: 52px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  border: 2.5px solid var(--border-active);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+.bg-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+.bg-input.wide { width: 68px; font-size: 1.25rem; }
+.bg-input:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Validation colours */
+.bg-input.correct { border-color: var(--accent-green); color: var(--accent-green); background: rgba(34,197,94,0.07); }
+.bg-input.wrong   { border-color: var(--accent-red);   color: var(--accent-red);   background: rgba(248,113,113,0.07); animation: shake 0.4s ease; }
+
+/* Above-row inputs (purple accent) — same size as original digits */
+.above-input {
+  font-size: 2.8rem;
+  color: #a855f7;
+  border-color: #a855f7;
+  height: 60px;
+  width: 60px;
+}
+.above-input.wide { width: 80px; font-size: 2.2rem; }
+.above-input:focus { box-shadow: 0 0 0 3px rgba(168,85,247,0.2); border-color: #a855f7; }
+.above-input.correct { border-color: var(--accent-green) !important; color: var(--accent-green) !important; }
+.above-input.wrong   { border-color: var(--accent-red)   !important; color: var(--accent-red)   !important; }
+
+/* Answer inputs (larger) */
+.ans-input {
+  font-size: 2.4rem;
+  height: 60px;
+  width: 60px;
+}

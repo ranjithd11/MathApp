@@ -1,0 +1,3 @@
+/* Subtraction page reuses all addition page CSS tokens */
+/* any sub-specific overrides go here */
+.sub-page .hero-badge { background: rgba(239, 68, 68, 0.12); color: #ef4444; }

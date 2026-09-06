@@ -65,8 +65,12 @@
   gap: 6px;
   flex: 1;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
 }
+.grade-nav::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
 .grade-pill {
   position: relative;
@@ -146,10 +150,16 @@
 
 @media (max-width: 768px) {
   .header-inner { padding: 0 16px; gap: 12px; }
-  .grade-nav { gap: 4px; }
+  .grade-nav { gap: 4px; justify-content: flex-start; }
   .grade-pill { min-width: 32px; height: 28px; padding: 0 7px; font-size: 0.68rem; }
   .logo-title { font-size: 1.15rem; }
   .logo-sub { display: none; }
+}
+
+/* Hide locked pills on small phones to reduce clutter */
+@media (max-width: 480px) {
+  .grade-pill.locked { display: none; }
+  .grade-nav { justify-content: center; }
 }
 
 /* ── Landscape mobile ── */
@@ -160,4 +170,5 @@
   .logo-sub { display: none; }
   .grade-pill { height: 26px; min-width: 28px; padding: 0 6px; font-size: 0.65rem; }
   .settings-link { width: 30px; height: 30px; }
+  .grade-pill.locked { display: none; }
 }

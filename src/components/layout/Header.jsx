@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from '../ui/ThemeToggle';
-import { FiSettings } from 'react-icons/fi';
+import { FiSettings, FiMenu, FiX } from 'react-icons/fi';
 import './Header.css';
 
-const GRADES = Array.from({ length: 10 }, (_, i) => i + 1);
-
-export default function Header() {
+export default function Header({ onMenuClick, sidebarOpen }) {
   const location = useLocation();
 
   return (
@@ -21,33 +19,8 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Grade selector */}
-        <nav className="grade-nav" aria-label="Grade selector">
-          {GRADES.map(g => {
-            const isActive = location.pathname.startsWith(`/grade/${g}`);
-            const isAvailable = g === 1;
-            return isAvailable ? (
-              <Link
-                key={g}
-                to={`/grade/${g}`}
-                className={`grade-pill ${isActive ? 'active' : ''}`}
-                aria-label={`Grade ${g}`}
-              >
-                G{g}
-              </Link>
-            ) : (
-              <span
-                key={g}
-                className="grade-pill locked"
-                title={`Grade ${g} — Coming Soon!`}
-                aria-disabled="true"
-              >
-                G{g}
-                <span className="lock-badge">🔒</span>
-              </span>
-            );
-          })}
-        </nav>
+        {/* Spacer */}
+        <div className="header-spacer" />
 
         {/* Right actions */}
         <div className="header-actions">
@@ -60,6 +33,16 @@ export default function Header() {
             <FiSettings size={20} />
           </Link>
           <ThemeToggle />
+
+          {/* Hamburger — mobile only */}
+          <button
+            className="menu-btn"
+            onClick={onMenuClick}
+            aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={sidebarOpen}
+          >
+            {sidebarOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+          </button>
         </div>
       </div>
     </header>

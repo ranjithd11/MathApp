@@ -127,6 +127,30 @@ body {
   flex-direction: column;
 }
 
+/* ── Page layout (sidebar + content) ── */
+.page-wrapper {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.page-content {
+  flex: 1;
+  min-width: 0;
+  /* Pages inside here set their own min-height */
+}
+
+/* Mobile sidebar backdrop */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: fadeUp 0.15s ease;
+}
+
 /* ============================================
    KEYFRAME ANIMATIONS
    ============================================ */

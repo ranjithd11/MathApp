@@ -1,133 +1,180 @@
-.numpad {
+/* ── Floating Drawer ── */
+.numpad-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Ensure it doesn't get wider than max app width if centered on desktop */
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+.numpad-drawer.expanded {
+  transform: translateY(0);
+}
+
+/* Calculate translation to hide the content but keep the toggle bar visible */
+.numpad-drawer.collapsed {
+  transform: translateY(calc(100% - 36px)); /* 36px is toggle bar height */
+}
+
+/* ── Toggle Bar ── */
+.np-toggle-bar {
   width: 100%;
-  flex: 1;
+  max-width: 400px;
+  height: 36px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  border-bottom: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  transition: all 0.2s;
+}
+.np-toggle-bar:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-primary);
+}
+
+/* ── Content Area ── */
+.numpad-content {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 1.5px solid var(--border-light);
+  border-right: 1.5px solid var(--border-light);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  padding: 16px;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
+}
+.dark-mode .numpad-content {
+  background: rgba(30, 30, 36, 0.85);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ── Top Row (Display + Action) ── */
+.numpad-top-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 /* Display */
 .numpad-display {
-  width: 100%;
-  height: 54px;
-  background: var(--input-bg);
-  border: 2px solid var(--input-border);
-  border-radius: var(--radius-lg);
+  flex: 1;
+  background: var(--bg-card);
+  border: 2px solid var(--border-active);
+  border-radius: var(--radius-md);
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
-}
-
-.numpad-display:not(.disabled) {
-  border-color: var(--accent-secondary);
-  box-shadow: 0 0 0 3px var(--input-focus);
-}
-
-.display-value {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--text-primary);
-  animation: numberRoll 0.12s ease both;
-  line-height: 1;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+.numpad-display.disabled {
+  opacity: 0.6;
+  background: var(--bg-secondary);
+  border-color: var(--border-light);
 }
 
-.numpad-display.disabled .display-value { opacity: 0.5; }
+/* Action Button Wrapper */
+.numpad-action-wrap {
+  display: flex;
+}
 
-/* Grid — compact */
+.np-action-btn {
+  height: 56px;
+  padding: 0 20px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.np-action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+.np-action-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+.np-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.np-action-btn.check {
+  background: linear-gradient(135deg, var(--accent-green), #16a34a);
+}
+.np-action-btn.next {
+  background: linear-gradient(135deg, var(--accent-primary), #4f46e5);
+}
+
+/* ── Grid ── */
 .numpad-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 7px;
-  width: 100%;
+  gap: 12px;
 }
 
-/* Keys — reduced height */
 .numpad-key {
-  height: 48px;
+  height: 60px;
+  border: none;
   border-radius: var(--radius-md);
-  border: 2px solid var(--border-color);
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 400;
-  transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-
-/* Ripple */
-.numpad-key::after {
-  content: '';
-  position: absolute;
-  inset: 50% 50%;
-  background: rgba(255,255,255,0.3);
-  border-radius: 50%;
-  transition: inset 0.25s ease, opacity 0.25s ease;
-  opacity: 0;
-}
-.numpad-key:active::after { inset: -10% -10%; opacity: 1; }
-
-/* Digit */
-.numpad-key.digit {
   background: var(--bg-card);
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
   color: var(--text-primary);
-  border-color: var(--border-color);
-  box-shadow: var(--shadow-sm);
-}
-.numpad-key.digit:hover:not(:disabled) {
-  background: var(--gradient-teal);
-  color: white;
-  border-color: transparent;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(78, 205, 196, 0.4);
-}
-.numpad-key.digit:active:not(:disabled) {
-  transform: translateY(0) scale(0.96);
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--border-light);
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Clear */
+.numpad-key:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 transparent;
+}
+.numpad-key:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: 0 2px 0 var(--border-light);
+  transform: translateY(2px);
+}
+
+.numpad-key.special {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+}
 .numpad-key.clear {
-  background: rgba(248, 113, 113, 0.1);
   color: var(--accent-red);
-  border-color: rgba(248, 113, 113, 0.25);
-  font-family: var(--font-main);
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.05em;
 }
-.numpad-key.clear:hover:not(:disabled) {
-  background: var(--accent-red);
-  color: white;
-  border-color: transparent;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(248, 113, 113, 0.4);
-}
-
-/* Backspace */
 .numpad-key.backspace {
-  background: rgba(255, 217, 61, 0.1);
-  color: var(--accent-gold);
-  border-color: rgba(255, 217, 61, 0.25);
-  font-size: 1.2rem;
-}
-.numpad-key.backspace:hover:not(:disabled) {
-  background: var(--gradient-gold);
-  color: white;
-  border-color: transparent;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(255, 217, 61, 0.4);
-}
-
-.numpad-key:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
-
-@media (max-width: 480px) {
-  .numpad-key  { height: 42px; font-size: 1.2rem; }
-  .numpad-grid { gap: 5px; }
-  .display-value { font-size: 1.9rem; }
-  .numpad-display { height: 48px; }
+  font-size: 1.6rem;
 }

@@ -137,7 +137,8 @@ body {
 .page-content {
   flex: 1;
   min-width: 0;
-  /* Pages inside here set their own min-height */
+  /* Add generous bottom padding to accommodate the floating NumberPad drawer */
+  padding-bottom: 340px;
 }
 
 /* Mobile sidebar backdrop */

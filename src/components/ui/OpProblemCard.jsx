@@ -144,23 +144,32 @@ export default function OpProblemCard({
           </div>
         </div>
 
-        {/* NumberPad */}
-        <div className="numpad-row">
-          <NumberPad value={userAnswer} onChange={setUserAnswer} disabled={!isAnswerable} />
-          {isAnswerable ? (
-            <button className="side-btn check" onClick={handleCheck} disabled={userAnswer === ''}>
-              <span className="side-btn-icon">✅</span>
-              <span className="side-btn-label">Check</span>
-              <span className="side-btn-hint">Enter ↵</span>
-            </button>
-          ) : (
-            <button className="side-btn next" onClick={handleNext}>
-              <span className="side-btn-icon">▶</span>
-              <span className="side-btn-label">Next</span>
-              <span className="side-btn-hint">Enter ↵</span>
-            </button>
-          )}
-        </div>
+        {/* Floating NumberPad */}
+        <NumberPad
+          value={userAnswer}
+          onChange={setUserAnswer}
+          disabled={!isAnswerable}
+          actionButton={
+            isAnswerable ? (
+              <button
+                className="np-action-btn check"
+                onClick={handleCheck}
+                disabled={userAnswer === ''}
+                aria-label="Check answer"
+              >
+                ✅ Check
+              </button>
+            ) : (
+              <button
+                className="np-action-btn next"
+                onClick={handleNext}
+                aria-label="Next question"
+              >
+                ▶ Next
+              </button>
+            )
+          }
+        />
 
         {/* Feedback */}
         {status === 'correct' && (

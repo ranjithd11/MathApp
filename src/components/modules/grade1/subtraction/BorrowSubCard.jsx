@@ -4,6 +4,7 @@ import { useTimer } from '../../../../hooks/useTimer';
 import { useSettings } from '../../../../context/SettingsContext';
 import { playCorrect, playWrong, playClick } from '../../../../utils/sounds';
 import MascotElephant from '../../../ui/MascotElephant';
+import NumberPad from '../../../ui/NumberPad';
 import './BorrowSubCard.css';
 
 /**
@@ -157,6 +158,23 @@ export default function BorrowSubCard({
     }
   };
 
+  // Helper for NumberPad
+  const getActiveValue = () => {
+    if (borrowStep === 'reducedTens') return reducedTensInput;
+    if (borrowStep === 'borrowedOnes') return borrowedOnesInput;
+    if (borrowStep === 'onesAnswer') return onesAnsInput;
+    if (borrowStep === 'tensAnswer') return tensAnsInput;
+    return '';
+  };
+
+  const handleActiveChange = (val) => {
+    const e = { target: { value: val } };
+    if (borrowStep === 'reducedTens') onReducedTensChange(e);
+    else if (borrowStep === 'borrowedOnes') onBorrowedOnesChange(e);
+    else if (borrowStep === 'onesAnswer') onOnesAnsChange(e);
+    else if (borrowStep === 'tensAnswer') onTensAnsChange(e);
+  };
+
   const handleNext = useCallback(() => {
     setTimedOut(false);
     nextQuestion();
@@ -245,6 +263,8 @@ export default function BorrowSubCard({
                 maxLength={1}
                 aria-label="Reduced tens"
                 placeholder="?"
+                inputMode="numeric"
+                onFocus={() => setBorrowStep('reducedTens')}
               />
             </div>
             <div className="bv-cell above-cell">
@@ -258,6 +278,8 @@ export default function BorrowSubCard({
                 maxLength={2}
                 aria-label="Borrowed ones"
                 placeholder="?"
+                inputMode="numeric"
+                onFocus={() => setBorrowStep('borrowedOnes')}
               />
             </div>
 
@@ -293,6 +315,8 @@ export default function BorrowSubCard({
                 maxLength={1}
                 aria-label="Tens answer"
                 placeholder="?"
+                inputMode="numeric"
+                onFocus={() => { if (borrowStep !== 'done') setBorrowStep('tensAnswer'); }}
               />
             </div>
             <div className="bv-cell">
@@ -306,8 +330,28 @@ export default function BorrowSubCard({
                 maxLength={1}
                 aria-label="Ones answer"
                 placeholder="?"
+                inputMode="numeric"
+                onFocus={() => { if (borrowStep !== 'done' && borrowStep !== 'tensAnswer') setBorrowStep('onesAnswer'); }}
               />
             </div>
+        
+        {/* Floating NumberPad */}
+        <NumberPad
+          value={getActiveValue()}
+          onChange={handleActiveChange}
+          disabled={!isAnswerable || borrowStep === 'done'}
+          actionButton={
+            borrowStep === 'done' || timedOut ? (
+              <button
+                className="np-action-btn next"
+                onClick={handleNext}
+                aria-label="Next question"
+              >
+                ▶ Next
+              </button>
+            ) : null
+          }
+        />
 
           </div>{/* end borrow-vgrid */}
         </div>{/* end borrow-math-wrap */}

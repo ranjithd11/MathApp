@@ -6,6 +6,7 @@ import { useTimer } from '../../../../hooks/useTimer';
 import { useSettings } from '../../../../context/SettingsContext';
 import { playCorrect, playWrong, playClick } from '../../../../utils/sounds';
 import MascotElephant from '../../../ui/MascotElephant';
+import NumberPad from '../../../ui/NumberPad';
 import './DoubleDigitProblemCard.css';
 
 export default function DoubleDigitProblemCard({
@@ -28,6 +29,9 @@ export default function DoubleDigitProblemCard({
   const [onesInput, setOnesInput] = useState('');
   const [tensInput, setTensInput] = useState('');
   const [carryInput, setCarryInput] = useState('');
+
+  // Track which input is active for the NumberPad
+  const [activeField, setActiveField] = useState('ones'); // 'ones', 'tens', 'carry'
 
   const carryRef = useRef(null);
   const tensRef = useRef(null);
@@ -185,6 +189,21 @@ export default function DoubleDigitProblemCard({
     if (soundEnabled && val) playClick();
   };
 
+  // Helper for NumberPad
+  const getActiveValue = () => {
+    if (activeField === 'ones') return onesInput;
+    if (activeField === 'tens') return tensInput;
+    if (activeField === 'carry') return carryInput;
+    return '';
+  };
+
+  const handleActiveChange = (val) => {
+    const e = { target: { value: val } };
+    if (activeField === 'ones') onOnesChange(e);
+    if (activeField === 'tens') onTensChange(e);
+    if (activeField === 'carry') onCarryChange(e);
+  };
+
   const onKeyDown = (e, field) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -257,10 +276,12 @@ export default function DoubleDigitProblemCard({
                 className={`mg-input carry-input ${carryCorrect && carryInput !== '' ? 'correct' : ''} ${carryWrong ? 'wrong' : ''}`}
                 value={carryInput}
                 onChange={onCarryChange}
+                onFocus={() => setActiveField('carry')}
                 onKeyDown={(e) => onKeyDown(e, 'carry')}
                 disabled={!isAnswerable}
                 placeholder="0"
                 aria-label="Carry over"
+                inputMode="numeric"
               />
             </div>
             
@@ -291,9 +312,11 @@ export default function DoubleDigitProblemCard({
                   className="mg-input ans-input"
                   value={tensInput}
                   onChange={onTensChange}
+                  onFocus={() => setActiveField('tens')}
                   onKeyDown={(e) => onKeyDown(e, 'tens')}
                   disabled={!isAnswerable}
                   aria-label="Tens digit answer"
+                  inputMode="numeric"
                 />
               </div>
               <div className="mg-cell">
@@ -303,36 +326,43 @@ export default function DoubleDigitProblemCard({
                   className={`mg-input ans-input ${onesCorrect ? 'correct' : ''} ${onesWrong ? 'wrong' : ''}`}
                   value={onesInput}
                   onChange={onOnesChange}
+                  onFocus={() => setActiveField('ones')}
                   onKeyDown={(e) => onKeyDown(e, 'ones')}
                   disabled={!isAnswerable}
                   aria-label="Ones digit answer"
+                  inputMode="numeric"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Action button */}
-        <div className="vertical-actions">
-          {isAnswerable ? (
-            <button
-              className="side-btn check full-width"
-              onClick={handleCheck}
-              disabled={onesInput === '' || tensInput === ''}
-            >
-              <span className="side-btn-icon">✅</span>
-              <span className="side-btn-label">Check Answer</span>
-            </button>
-          ) : (
-            <button
-              className="side-btn next full-width"
-              onClick={handleNext}
-            >
-              <span className="side-btn-icon">▶</span>
-              <span className="side-btn-label">Next Question</span>
-            </button>
-          )}
-        </div>
+        {/* Floating NumberPad */}
+        <NumberPad
+          value={getActiveValue()}
+          onChange={handleActiveChange}
+          disabled={!isAnswerable}
+          actionButton={
+            isAnswerable ? (
+              <button
+                className="np-action-btn check"
+                onClick={handleCheck}
+                disabled={onesInput === '' || tensInput === ''}
+                aria-label="Check answer"
+              >
+                ✅ Check
+              </button>
+            ) : (
+              <button
+                className="np-action-btn next"
+                onClick={handleNext}
+                aria-label="Next question"
+              >
+                ▶ Next
+              </button>
+            )
+          }
+        />
 
         {/* Feedback */}
         {status === 'correct' && (

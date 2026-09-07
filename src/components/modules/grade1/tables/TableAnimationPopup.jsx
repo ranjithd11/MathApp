@@ -18,18 +18,8 @@ export default function TableAnimationPopup({ tableNum, onClose }) {
   useEffect(() => {
     // If reveal all is active, skip this animation
     if (revealAll) return;
-    // Reset step whenever currentRow changes
-    setStep(0);
-    let t1, t2;
-
-    // Start sequence for current row (0.5 second delays) up to step 2
-    t1 = setTimeout(() => setStep(1), 50);
-    t2 = setTimeout(() => setStep(2), 50);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    // Directly reveal up to step 2 (no delay)
+    setStep(2);
   }, [currentRow, revealAll]);
 
   // Auto-advance to next row after showing answer
